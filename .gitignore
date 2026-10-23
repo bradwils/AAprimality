@@ -66,3 +66,17 @@ vcpkg_installed/
 # test output & cache
 Testing/
 .cache/
+
+# Agent guidelines (local only)
+CLAUDE.md
+
+# Large media (video, audio)
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+*.wav
+*.mp3
+*.m4a
+*.flac

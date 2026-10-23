@@ -144,3 +144,21 @@ Group-level components default to the same grade for everyone, adjusted using th
 | End of Week 3 | All implementations working, benchmarking infrastructure built, experiments started, report drafting begun. |
 | End of Week 4 | Experiments done, report written, video produced, everything submitted. Aim to finish experiments and a full draft a few days early; reserve the last days for recording and editing the video. |
 | Week 5 | Peer video assignments go out shortly after submission; the 3 responses are due one week later. |
+
+## 11. Algorithms under study
+
+We are working on these three primality tests. This is the **deterministic vs randomized** theme (theme 2 above). A group of 3 implements all three, each with a primary author (section 2).
+
+| Algorithm | Type | What to know for the comparison |
+|---|---|---|
+| **AKS** | Deterministic, polynomial time | Always correct. Its advantage is the guarantee; its cost is large constant factors in practice. |
+| **Fermat** | Probabilistic | Fails on **Carmichael numbers**: they pass the Fermat test for every base coprime to n, so it cannot reliably reject them. |
+| **Miller-Rabin** | Probabilistic | No known class of inputs defeats it. Each random base catches a composite with probability at least 3/4. |
+
+## 12. Agent commit log
+
+Commits made entirely by an agent are recorded here, with the commit hash (see [CLAUDE.md](CLAUDE.md) §4).
+
+| Date | Commit | Message |
+|---|---|---|
+
