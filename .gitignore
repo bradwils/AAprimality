@@ -80,3 +80,6 @@ CLAUDE.md
 *.mp3
 *.m4a
 *.flac
+
+# Build output
+build/

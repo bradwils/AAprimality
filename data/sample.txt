@@ -1,0 +1,4 @@
+# Carmichael numbers (evil)
+561
+1105
+1729
