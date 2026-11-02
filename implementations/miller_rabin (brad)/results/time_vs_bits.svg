@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="900" height="480" font-family="Helvetica, Arial, sans-serif" font-size="12">
+<rect width="900" height="480" fill="#ffffff"/>
+<text x="78" y="26" font-size="16" font-weight="bold" fill="#222222">Time per call against bit length</text>
+<text x="78" y="44" fill="#7a7a7a">1000 instances per point, median of 21 repetitions</text>
+<line x1="78" x2="670" y1="420.0" y2="420.0" stroke="#e3e3e3"/>
+<text x="70" y="424.0" text-anchor="end" fill="#7a7a7a">10</text>
+<line x1="78" x2="670" y1="330.5" y2="330.5" stroke="#e3e3e3"/>
+<text x="70" y="334.5" text-anchor="end" fill="#7a7a7a">100</text>
+<line x1="78" x2="670" y1="241.0" y2="241.0" stroke="#e3e3e3"/>
+<text x="70" y="245.0" text-anchor="end" fill="#7a7a7a">1e3</text>
+<line x1="78" x2="670" y1="151.5" y2="151.5" stroke="#e3e3e3"/>
+<text x="70" y="155.5" text-anchor="end" fill="#7a7a7a">1e4</text>
+<line x1="78" x2="670" y1="62.0" y2="62.0" stroke="#e3e3e3"/>
+<text x="70" y="66.0" text-anchor="end" fill="#7a7a7a">1e5</text>
+<line x1="99.1" x2="99.1" y1="62" y2="420" stroke="#f0f0f0"/>
+<text x="99.1" y="438" text-anchor="middle" fill="#7a7a7a">10</text>
+<line x1="204.9" x2="204.9" y1="62" y2="420" stroke="#f0f0f0"/>
+<text x="204.9" y="438" text-anchor="middle" fill="#7a7a7a">20</text>
+<line x1="310.6" x2="310.6" y1="62" y2="420" stroke="#f0f0f0"/>
+<text x="310.6" y="438" text-anchor="middle" fill="#7a7a7a">30</text>
+<line x1="416.3" x2="416.3" y1="62" y2="420" stroke="#f0f0f0"/>
+<text x="416.3" y="438" text-anchor="middle" fill="#7a7a7a">40</text>
+<line x1="522.0" x2="522.0" y1="62" y2="420" stroke="#f0f0f0"/>
+<text x="522.0" y="438" text-anchor="middle" fill="#7a7a7a">50</text>
+<line x1="627.7" x2="627.7" y1="62" y2="420" stroke="#f0f0f0"/>
+<text x="627.7" y="438" text-anchor="middle" fill="#7a7a7a">60</text>
+<rect x="78" y="62" width="592" height="358" fill="none" stroke="#999"/>
+<text x="374.0" y="466" text-anchor="middle" fill="#222222">bit length of n</text>
+<text transform="translate(18 241.0) rotate(-90)" text-anchor="middle" fill="#222222">median ns per call (log scale)</text>
+<path d="M78.0 251.4 L120.3 234.5 L162.6 223.5 L204.9 214.7 L247.1 207.7 L289.4 201.8 L331.7 196.4 L374.0 175.2 L416.3 170.0 L458.6 165.3 L500.9 162.5 L543.1 159.0 L585.4 156.6 L627.7 154.3 L670.0 149.8" fill="none" stroke="#0072B2" stroke-width="2"/>
+<circle cx="78.0" cy="251.4" r="3.2" fill="#0072B2"/>
+<circle cx="120.3" cy="234.5" r="3.2" fill="#0072B2"/>
+<circle cx="162.6" cy="223.5" r="3.2" fill="#0072B2"/>
+<circle cx="204.9" cy="214.7" r="3.2" fill="#0072B2"/>
+<circle cx="247.1" cy="207.7" r="3.2" fill="#0072B2"/>
+<circle cx="289.4" cy="201.8" r="3.2" fill="#0072B2"/>
+<circle cx="331.7" cy="196.4" r="3.2" fill="#0072B2"/>
+<circle cx="374.0" cy="175.2" r="3.2" fill="#0072B2"/>
+<circle cx="416.3" cy="170.0" r="3.2" fill="#0072B2"/>
+<circle cx="458.6" cy="165.3" r="3.2" fill="#0072B2"/>
+<circle cx="500.9" cy="162.5" r="3.2" fill="#0072B2"/>
+<circle cx="543.1" cy="159.0" r="3.2" fill="#0072B2"/>
+<circle cx="585.4" cy="156.6" r="3.2" fill="#0072B2"/>
+<circle cx="627.7" cy="154.3" r="3.2" fill="#0072B2"/>
+<circle cx="670.0" cy="149.8" r="3.2" fill="#0072B2"/>
+<path d="M78.0 337.1 L120.3 318.1 L162.6 307.0 L204.9 298.6 L247.1 291.8 L289.4 286.1 L331.7 281.0 L374.0 260.8 L416.3 255.6 L458.6 250.6 L500.9 247.7 L543.1 244.5 L585.4 240.7 L627.7 239.5 L670.0 235.0" fill="none" stroke="#56B4E9" stroke-width="2"/>
+<circle cx="78.0" cy="337.1" r="3.2" fill="#56B4E9"/>
+<circle cx="120.3" cy="318.1" r="3.2" fill="#56B4E9"/>
+<circle cx="162.6" cy="307.0" r="3.2" fill="#56B4E9"/>
+<circle cx="204.9" cy="298.6" r="3.2" fill="#56B4E9"/>
+<circle cx="247.1" cy="291.8" r="3.2" fill="#56B4E9"/>
+<circle cx="289.4" cy="286.1" r="3.2" fill="#56B4E9"/>
+<circle cx="331.7" cy="281.0" r="3.2" fill="#56B4E9"/>
+<circle cx="374.0" cy="260.8" r="3.2" fill="#56B4E9"/>
+<circle cx="416.3" cy="255.6" r="3.2" fill="#56B4E9"/>
+<circle cx="458.6" cy="250.6" r="3.2" fill="#56B4E9"/>
+<circle cx="500.9" cy="247.7" r="3.2" fill="#56B4E9"/>
+<circle cx="543.1" cy="244.5" r="3.2" fill="#56B4E9"/>
+<circle cx="585.4" cy="240.7" r="3.2" fill="#56B4E9"/>
+<circle cx="627.7" cy="239.5" r="3.2" fill="#56B4E9"/>
+<circle cx="670.0" cy="235.0" r="3.2" fill="#56B4E9"/>
+<path d="M78.0 334.5 L120.3 319.2 L162.6 308.5 L204.9 300.0 L247.1 293.0 L289.4 287.1 L331.7 281.8 L374.0 260.0 L416.3 254.9 L458.6 250.3 L500.9 247.5 L543.1 244.4 L585.4 241.7 L627.7 239.5 L670.0 234.1" fill="none" stroke="#222222" stroke-width="2" stroke-dasharray="2 4"/>
+<rect x="75.4" y="331.9" width="5.2" height="5.2" fill="#222222"/>
+<rect x="117.7" y="316.6" width="5.2" height="5.2" fill="#222222"/>
+<rect x="160.0" y="305.9" width="5.2" height="5.2" fill="#222222"/>
+<rect x="202.3" y="297.4" width="5.2" height="5.2" fill="#222222"/>
+<rect x="244.5" y="290.4" width="5.2" height="5.2" fill="#222222"/>
+<rect x="286.8" y="284.5" width="5.2" height="5.2" fill="#222222"/>
+<rect x="329.1" y="279.2" width="5.2" height="5.2" fill="#222222"/>
+<rect x="371.4" y="257.4" width="5.2" height="5.2" fill="#222222"/>
+<rect x="413.7" y="252.3" width="5.2" height="5.2" fill="#222222"/>
+<rect x="456.0" y="247.7" width="5.2" height="5.2" fill="#222222"/>
+<rect x="498.3" y="244.9" width="5.2" height="5.2" fill="#222222"/>
+<rect x="540.5" y="241.8" width="5.2" height="5.2" fill="#222222"/>
+<rect x="582.8" y="239.1" width="5.2" height="5.2" fill="#222222"/>
+<rect x="625.1" y="236.9" width="5.2" height="5.2" fill="#222222"/>
+<rect x="667.4" y="231.5" width="5.2" height="5.2" fill="#222222"/>
+<path d="M78.0 339.1 L120.3 321.3 L162.6 308.7 L204.9 299.6 L247.1 292.7 L289.4 286.8 L331.7 281.7 L374.0 260.5 L416.3 254.5 L458.6 250.9 L500.9 248.1 L543.1 244.3 L585.4 242.0 L627.7 239.1 L670.0 235.1" fill="none" stroke="#D55E00" stroke-width="2"/>
+<circle cx="78.0" cy="339.1" r="3.2" fill="#D55E00"/>
+<circle cx="120.3" cy="321.3" r="3.2" fill="#D55E00"/>
+<circle cx="162.6" cy="308.7" r="3.2" fill="#D55E00"/>
+<circle cx="204.9" cy="299.6" r="3.2" fill="#D55E00"/>
+<circle cx="247.1" cy="292.7" r="3.2" fill="#D55E00"/>
+<circle cx="289.4" cy="286.8" r="3.2" fill="#D55E00"/>
+<circle cx="331.7" cy="281.7" r="3.2" fill="#D55E00"/>
+<circle cx="374.0" cy="260.5" r="3.2" fill="#D55E00"/>
+<circle cx="416.3" cy="254.5" r="3.2" fill="#D55E00"/>
+<circle cx="458.6" cy="250.9" r="3.2" fill="#D55E00"/>
+<circle cx="500.9" cy="248.1" r="3.2" fill="#D55E00"/>
+<circle cx="543.1" cy="244.3" r="3.2" fill="#D55E00"/>
+<circle cx="585.4" cy="242.0" r="3.2" fill="#D55E00"/>
+<circle cx="627.7" cy="239.1" r="3.2" fill="#D55E00"/>
+<circle cx="670.0" cy="235.1" r="3.2" fill="#D55E00"/>
+<path d="M78.0 337.1 L120.3 319.5 L162.6 308.2 L204.9 300.0 L247.1 293.2 L289.4 286.8 L331.7 281.6 L374.0 261.0 L416.3 254.7 L458.6 250.9 L500.9 247.8 L543.1 245.0 L585.4 242.1 L627.7 239.7 L670.0 235.6" fill="none" stroke="#009E73" stroke-width="2"/>
+<circle cx="78.0" cy="337.1" r="3.2" fill="#009E73"/>
+<circle cx="120.3" cy="319.5" r="3.2" fill="#009E73"/>
+<circle cx="162.6" cy="308.2" r="3.2" fill="#009E73"/>
+<circle cx="204.9" cy="300.0" r="3.2" fill="#009E73"/>
+<circle cx="247.1" cy="293.2" r="3.2" fill="#009E73"/>
+<circle cx="289.4" cy="286.8" r="3.2" fill="#009E73"/>
+<circle cx="331.7" cy="281.6" r="3.2" fill="#009E73"/>
+<circle cx="374.0" cy="261.0" r="3.2" fill="#009E73"/>
+<circle cx="416.3" cy="254.7" r="3.2" fill="#009E73"/>
+<circle cx="458.6" cy="250.9" r="3.2" fill="#009E73"/>
+<circle cx="500.9" cy="247.8" r="3.2" fill="#009E73"/>
+<circle cx="543.1" cy="245.0" r="3.2" fill="#009E73"/>
+<circle cx="585.4" cy="242.1" r="3.2" fill="#009E73"/>
+<circle cx="627.7" cy="239.7" r="3.2" fill="#009E73"/>
+<circle cx="670.0" cy="235.6" r="3.2" fill="#009E73"/>
+<line x1="688" x2="714" y1="70" y2="70" stroke="#0072B2" stroke-width="2"/>
+<text x="722" y="74" fill="#222222">prime, k = 9</text>
+<line x1="688" x2="714" y1="92" y2="92" stroke="#56B4E9" stroke-width="2"/>
+<text x="722" y="96" fill="#222222">prime, k = 1</text>
+<line x1="688" x2="714" y1="114" y2="114" stroke="#222222" stroke-width="2" stroke-dasharray="2 4"/>
+<text x="722" y="118" fill="#222222">one a^(n-1) mod n</text>
+<line x1="688" x2="714" y1="136" y2="136" stroke="#D55E00" stroke-width="2"/>
+<text x="722" y="140" fill="#222222">semiprime, k = 9</text>
+<line x1="688" x2="714" y1="158" y2="158" stroke="#009E73" stroke-width="2"/>
+<text x="722" y="162" fill="#222222">random composite, k = 9</text>
+</svg>

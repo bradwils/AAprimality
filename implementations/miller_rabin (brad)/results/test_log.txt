@@ -1,0 +1,12 @@
+[edge cases]
+[mul_mod and pow_mod]
+[every n below 200000 against a sieve]
+    17984 primes, 182017 composites
+[known primes, composites, Carmichael, strong pseudoprimes]
+[share of bases that fool one round stays below 1/4]
+    worst odd composite up to 5000: n = 1891, liar share 0.2373
+[rounds_used reporting]
+[data/instances.csv labels]
+    49386 instances checked, 7593 at 60 bits or more
+
+64 checks, 0 failed
