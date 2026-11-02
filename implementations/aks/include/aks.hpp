@@ -1,5 +1,5 @@
 // AKS deterministic primality test (Agrawal-Kayal-Saxena, 2002).
-// Primary author: <NAME - fill in>
+// Primary author: Ben (see implementations/aks/BEN)
 #pragma once
 #include <cstdint>
 #include <string>

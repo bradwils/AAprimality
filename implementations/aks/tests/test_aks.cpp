@@ -4,15 +4,7 @@
 #include <string>
 #include <vector>
 #include "aks.hpp"
-
-static bool trial_division(uint64_t n) {
-    if (n < 2) return false;
-    if (n < 4) return true;
-    if (n % 2 == 0) return false;
-    for (uint64_t d = 3; d * d <= n; d += 2)
-        if (n % d == 0) return false;
-    return true;
-}
+#include "oracle.hpp"
 
 static int failures = 0;
 static void check(uint64_t n, const char* label) {

@@ -1,5 +1,5 @@
 // AKS deterministic primality test. See include/aks.hpp.
-// Primary author: <NAME - fill in>
+// Primary author: Ben (see implementations/aks/BEN)
 #include "aks.hpp"
 
 #include <algorithm>

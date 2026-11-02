@@ -4,8 +4,8 @@ Assignment limit for a group of 3 is **15 minutes, hard cap** (12 for a group of
 the budget below sums to 14:30 and leaves slack. Everything about Fermat, Miller-Rabin and the head-to-head
 comparison is marked **[PENDING]** because that work has not been done yet.
 
-Numbers quoted below come from `results/*.csv` on the reference machine (Xeon 2.8 GHz, 1 vCPU, g++ -O2). Re-run
-`./build/bench` and `python3 scripts/plot_aks.py` before recording and update any figure that changed.
+Numbers quoted below come from `implementations/aks/results/*.csv` on the reference machine (Xeon 2.8 GHz, 1 vCPU, g++ -O2). Re-run
+`make bench` (commands in the root README) and `python3 implementations/aks/scripts/plot_aks.py` before recording and update any figure that changed.
 
 | Segment | Budget | Who | Status |
 |---|---|---|---|
@@ -48,7 +48,7 @@ Required by the assignment: not "what it does" but **the invariant, why each cas
 binomial coefficient C(n, k) is divisible by n. AKS's theorem says the converse holds too: if the congruence
 holds for enough values of a, in a ring cut down to size r, then n is prime or a prime power."
 
-**The invariant (say, with code on screen, `poly_square` and `poly_mul_xa` in `src/aks.cpp`):** "All arithmetic
+**The invariant (say, with code on screen, `poly_square` and `poly_mul_xa` in `implementations/aks/src/aks.cpp`):** "All arithmetic
 happens in the ring (Z/nZ)[X] modulo X^r - 1. So every polynomial is exactly r coefficients, each in [0, n).
 Reducing mod X^r - 1 just means exponents wrap around: the coefficient of X^(i+j) is added into slot (i+j) mod r."
 
@@ -78,7 +78,7 @@ log^2 n, that is roughly log^7 n bit operations with schoolbook multiplication."
 
 ## Segment 3: results (~3:30), AKS findings drafted
 
-**Plot A: `results/aks_time_by_family.png`** (log y-axis by input family)
+**Plot A: `implementations/aks/results/aks_time_by_family.png`** (log y-axis by input family)
 
 - "AKS is only slow on primes, because only a prime has to survive every one of the roughly r checks. A composite
   usually fails the very first check."
@@ -89,11 +89,11 @@ log^2 n, that is roughly log^7 n bit operations with schoolbook multiplication."
   step 5, but fail on the first value of a. That costs roughly 1/a_limit of a prime's time (at 24 bits: 3.8 ms vs 2.9 s).
 - Prime squares: constant, about 0.4 microseconds, from the perfect-power check.
 
-**Plot B: `results/aks_prime_loglog.png`.** Fitted slope of time against bits for primes is about 6.8. That is
+**Plot B: `implementations/aks/results/aks_prime_loglog.png`.** Fitted slope of time against bits for primes is about 6.8. That is
 close to the roughly log^7 n predicted for AKS with schoolbook polynomial multiplication. Say clearly that this
 is a fit over 12 to 26 bits only (10 data points, 3 primes per size).
 
-**Plot C: `results/aks_r_vs_log2sq.png`.** r hugs log2(n)^2. Combined with a_limit being about r, the work per
+**Plot C: `implementations/aks/results/aks_r_vs_log2sq.png`.** r hugs log2(n)^2. Combined with a_limit being about r, the work per
 test is about r^3 log n.
 
 **[PENDING] the head-to-head slide:** AKS time vs Fermat vs Miller-Rabin on the same primes, same bit sizes (use
@@ -107,7 +107,7 @@ that breaks Fermat and not AKS).
 
 Pick one with the group once Fermat/MR data exist. Candidates already observed:
 
-1. **A 17x cliff at 2^32 that the algorithm's theory does not predict** (`results/aks_32bit_cliff.png`). One
+1. **A 17x cliff at 2^32 that the algorithm's theory does not predict** (`implementations/aks/results/aks_32bit_cliff.png`). One
    polynomial exponentiation on a 32-bit semiprime takes 15.7 ms; on a 33-bit semiprime 264 ms, although r only
    moved from about 1050 to about 1070. Explanation: below 2^32 a product of two coefficients fits in 64 bits, so
    we accumulate a whole dot product and reduce once per output coefficient; above it each product needs a 128-bit

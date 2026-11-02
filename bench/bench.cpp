@@ -1,8 +1,7 @@
-// Unified benchmark harness for the primality-testing comparison.
+// Unified benchmark harness for the primality-testing comparison (shared by ALL implementations).
 //
-//   ./build/bench --bits-min 8 --bits-max 26 --bits-step 2 --reps 5 --instances 3
-//                 --families prime,semiprime,random_composite,prime_square
-//                 --csv results/aks.csv --max-seconds 20
+// Run from the repository root, e.g.:
+//   make bench ARGS="--bits-min 8 --bits-max 26 --bits-step 2 --reps 3 --instances 3 --families prime --csv results/bench.csv"
 //
 // Fairness rules built into the harness (keep these when adding Fermat / Miller-Rabin):
 //   * Inputs are generated ONCE per (family, bits, instance) from a fixed seed, before any
@@ -25,6 +24,7 @@
 
 #include "aks.hpp"
 #include "common.hpp"
+#include "oracle.hpp"
 
 using u64 = uint64_t;
 
@@ -35,22 +35,13 @@ static bool aks_adapter(u64 n) { return aks::is_prime(n, &g_aks_stats); }
 // ---------------- Algorithm registry: add Fermat and Miller-Rabin here ----------------
 static std::vector<Algorithm> registry() {
     return {
-        {"aks", "<AKS author>", aks_adapter},
+        {"aks", "Ben", aks_adapter},
         // {"fermat", "<Fermat author>", fermat::is_prime_adapter},
         // {"miller_rabin", "<MR author>", miller_rabin::is_prime_adapter},
     };
 }
 
 // ---------------- Oracle + input generation ----------------
-static bool trial_division(u64 n) {
-    if (n < 2) return false;
-    if (n < 4) return true;
-    if (n % 2 == 0) return false;
-    for (u64 d = 3; d * d <= n; d += 2)
-        if (n % d == 0) return false;
-    return true;
-}
-
 static u64 random_with_bits(std::mt19937_64& rng, int bits) {
     u64 lo = 1ULL << (bits - 1);
     return lo | (rng() & (lo - 1)) | 1ULL;  // exactly `bits` bits, odd
