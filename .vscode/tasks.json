@@ -1,0 +1,23 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "CMake: build (Release)",
+            "type": "shell",
+            "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build",
+            "options": { "cwd": "${workspaceFolder}" },
+            "problemMatcher": ["$gcc"],
+            "group": { "kind": "build", "isDefault": true },
+            "detail": "Optimised build for benchmarking: build/primality"
+        },
+        {
+            "label": "CMake: build (Debug)",
+            "type": "shell",
+            "command": "cmake -S . -B build-debug -DCMAKE_BUILD_TYPE=Debug && cmake --build build-debug",
+            "options": { "cwd": "${workspaceFolder}" },
+            "problemMatcher": ["$gcc"],
+            "group": "build",
+            "detail": "Debug symbols, no optimisation: build-debug/primality"
+        }
+    ]
+}
