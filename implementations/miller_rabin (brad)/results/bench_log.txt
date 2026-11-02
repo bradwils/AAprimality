@@ -1,0 +1,21 @@
+loaded 49386 instances
+liars: exhaustive bases for odd composites up to 20000
+  worst Miller-Rabin liar share 0.2452 at n = 12403; Carmichael numbers in range: 9
+time_bits
+time_k
+families
+  prime_64             mean rounds 9.000, mean 10636 ns, p99 15166 ns
+  rand_composite_64    mean rounds 1.000, mean 1151 ns, p99 1625 ns
+  semiprime_64         mean rounds 1.000, mean 1167 ns, p99 1625 ns
+  carmichael_60plus    mean rounds 1.111, mean 1198 ns, p99 2916 ns
+  hard_60plus          mean rounds 1.333, mean 1469 ns, p99 4583 ns
+error
+  rand_composite_64    k=1 error 0.0000, k=3 0.00e+00, k=9 0.00e+00 (0 of 2000000)
+  semiprime_64         k=1 error 0.0000, k=3 0.00e+00, k=9 0.00e+00 (0 of 2000000)
+  carmichael_all       k=1 error 0.0975, k=3 1.21e-03, k=9 0.00e+00 (0 of 2000000)
+  carmichael_60plus    k=1 error 0.1000, k=3 1.23e-03, k=9 0.00e+00 (0 of 2000000)
+  spsp2                k=1 error 0.0541, k=3 7.45e-04, k=9 0.00e+00 (0 of 2000000)
+  spsp_multi           k=1 error 0.2017, k=3 1.01e-02, k=9 1.50e-06 (3 of 2000000)
+  hard_all             k=1 error 0.2500, k=3 1.56e-02, k=9 3.70e-06 (74 of 20000000)
+  Carmichael k=1 error: mean 0.0973 over 1777 numbers, worst 0.2440
+diag
