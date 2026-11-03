@@ -18,6 +18,11 @@ add_library(aks          implementations/AKS/aks.cpp) # Ben
 foreach(lib fermat miller_rabin aks)
   target_link_libraries(${lib} PUBLIC common)
 endforeach()
+target_include_directories(aks PUBLIC implementations/AKS)
 
-add_executable(primality src/main.cpp)
-target_link_libraries(primality PRIVATE fermat miller_rabin aks)
+add_executable(primality src/main.cpp) # run algorithms on given numbers
+add_executable(tests tests/tests.cpp) # correctness against known results
+add_executable(bench bench/bench.cpp) # experiments, CSV into results/
+foreach(exe primality tests bench)
+  target_link_libraries(${exe} PRIVATE fermat miller_rabin aks)
+endforeach()
