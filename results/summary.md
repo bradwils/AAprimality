@@ -8,28 +8,28 @@ Fermat and Miller-Rabin run with k = 9 rounds. — means not measured, because o
 
 | algorithm | family | 8 bits | 16 bits | 24 bits | 32 bits | 48 bits | 64 bits |
 |---|---|---|---|---|---|---|---|
-| Fermat | prime | 177 ns | 408 ns | 641 ns | 933 ns | 1.92 µs | 2.91 µs |
-| Fermat | semiprime | 20.3 ns | 43.9 ns | 81.9 ns | 120 ns | 215 ns | 319 ns |
-| Fermat | rand_composite | 23.4 ns | 47.2 ns | 81.8 ns | 119 ns | 220 ns | 324 ns |
-| Fermat | prime_square | 21.3 ns | 42.5 ns | 69.1 ns | 99.2 ns | 209 ns | 321 ns |
-| Miller-Rabin | prime | 196 ns | 463 ns | 710 ns | 988 ns | 2.02 µs | 3.03 µs |
-| Miller-Rabin | semiprime | 18.1 ns | 42.6 ns | 80 ns | 118 ns | 215 ns | 325 ns |
-| Miller-Rabin | rand_composite | 20.7 ns | 46.4 ns | 81.6 ns | 118 ns | 217 ns | 327 ns |
-| Miller-Rabin | prime_square | 19.8 ns | 41.7 ns | 67.6 ns | 97.5 ns | 204 ns | 313 ns |
-| AKS | prime | 784 µs | 87.4 ms | 1.43 s | — | — | — |
-| AKS | semiprime | 5.98 µs | 37.4 µs | 2.35 ms | 9.27 ms | 1.33 s | — |
-| AKS | rand_composite | 5.27 µs | 33.4 µs | 363 µs | 1.11 ms | 88.2 ms | 1.59 s |
-| AKS | prime_square | 344 ns | 344 ns | 340 ns | 342 ns | 342 ns | 341 ns |
+| Fermat | prime | 197 ns | 440 ns | 701 ns | 1.01 µs | 2.12 µs | 3.19 µs |
+| Fermat | semiprime | 22.2 ns | 48.5 ns | 84.4 ns | 131 ns | 237 ns | 360 ns |
+| Fermat | rand_composite | 25.7 ns | 51.5 ns | 85.9 ns | 128 ns | 238 ns | 356 ns |
+| Fermat | prime_square | 23.8 ns | 46.9 ns | 74.4 ns | 108 ns | 233 ns | 360 ns |
+| Miller-Rabin | prime | 216 ns | 515 ns | 788 ns | 1.1 µs | 2.22 µs | 3.34 µs |
+| Miller-Rabin | semiprime | 19.6 ns | 47 ns | 96.3 ns | 138 ns | 238 ns | 354 ns |
+| Miller-Rabin | rand_composite | 22.4 ns | 53.6 ns | 95.4 ns | 138 ns | 243 ns | 359 ns |
+| Miller-Rabin | prime_square | 22 ns | 46.7 ns | 74.2 ns | 105 ns | 234 ns | 367 ns |
+| AKS | prime | 892 µs | 101 ms | 1.63 s | — | — | — |
+| AKS | semiprime | 6.42 µs | 42.1 µs | 2.62 ms | 10.3 ms | 1.43 s | — |
+| AKS | rand_composite | 5.79 µs | 37.6 µs | 410 µs | 1.25 ms | 94.5 ms | — |
+| AKS | prime_square | 384 ns | 384 ns | 379 ns | 381 ns | 382 ns | 380 ns |
 
 ## How time grows with bit length on primes
 
-A slope of 1 means time doubles when the bit length doubles; a slope of 3 means it grows 8 times. At 28-bit primes AKS is 4,230,539× slower than Miller-Rabin (k = 9).
+A slope of 1 means time doubles when the bit length doubles; a slope of 3 means it grows 8 times. At 28-bit primes AKS is 4,307,418× slower than Miller-Rabin (k = 9).
 
 | algorithm | log-log slope | bit lengths used |
 |---|---|---|
-| Fermat | 1.43 | 12–64 |
+| Fermat | 1.44 | 12–64 |
 | Miller-Rabin | 1.37 | 12–64 |
-| AKS | 6.69 | 12–28 |
+| AKS | 6.68 | 12–28 |
 
 ## Wrong results found while timing
 
@@ -37,18 +37,18 @@ A slope of 1 means time doubles when the bit length doubles; a slope of 3 means 
 |---|---|---|
 | Fermat | 46500 | 1 |
 | Miller-Rabin | 46500 | 0 |
-| AKS | 10328 | 0 |
+| AKS | 10106 | 0 |
 
 ## Time per call as rounds increase (60–64 bit inputs)
 
 | algorithm | family | k = 1 | k = 9 | k = 20 | k = 20 time ÷ k = 1 time |
 |---|---|---|---|---|---|
-| Fermat | prime | 325 ns | 2.91 µs | 6.47 µs | 19.9 |
-| Fermat | rand_composite | 325 ns | 315 ns | 321 ns | 1.0 |
-| Fermat | carmichael | 312 ns | 2.79 µs | 6.13 µs | 19.6 |
-| Miller-Rabin | prime | 343 ns | 3.01 µs | 6.69 µs | 19.5 |
-| Miller-Rabin | rand_composite | 326 ns | 320 ns | 322 ns | 1.0 |
-| Miller-Rabin | carmichael | 337 ns | 382 ns | 381 ns | 1.1 |
+| Fermat | prime | 358 ns | 3.22 µs | 7.12 µs | 19.9 |
+| Miller-Rabin | prime | 385 ns | 3.34 µs | 7.36 µs | 19.1 |
+| Fermat | rand_composite | 357 ns | 357 ns | 356 ns | 1.0 |
+| Miller-Rabin | rand_composite | 357 ns | 357 ns | 361 ns | 1.0 |
+| Fermat | carmichael | 339 ns | 3.06 µs | 6.75 µs | 19.9 |
+| Miller-Rabin | carmichael | 374 ns | 420 ns | 424 ns | 1.1 |
 
 ## Error rate as rounds increase
 
@@ -71,20 +71,20 @@ Each cell is the fraction of 1,000,000 calls that returned prime, with the numbe
 
 ## Time per individual call (k = 9)
 
-Each call is timed on its own, so the times include reading the clock (resolution 9.0 ns).
+Each call is timed on its own, so the times include reading the clock (resolution 10.0 ns).
 
 | algorithm | input family | mean rounds | wrong | median | p99 | p99.9 | p99 ÷ median |
 |---|---|---|---|---|---|---|---|
-| Fermat | prime_64 | 9.000 | 0 / 200000 | 2.98 µs | 3.24 µs | 4.29 µs | 1.09 |
-| Fermat | rand_composite_64 | 1.000 | 0 / 200000 | 370 ns | 410 ns | 530 ns | 1.11 |
-| Fermat | semiprime_64 | 1.000 | 0 / 200000 | 370 ns | 410 ns | 530 ns | 1.11 |
-| Fermat | carmichael_60plus | 9.000 | 199999 / 200000 | 2.82 µs | 3.13 µs | 4.08 µs | 1.11 |
-| Fermat | hard_60plus | 1.992 | 388 / 200000 | 500 ns | 2.34 µs | 3.01 µs | 4.68 |
-| Miller-Rabin | prime_64 | 9.000 | 0 / 200000 | 3.04 µs | 3.41 µs | 4.18 µs | 1.12 |
-| Miller-Rabin | rand_composite_64 | 1.000 | 0 / 200000 | 370 ns | 409 ns | 530 ns | 1.11 |
-| Miller-Rabin | semiprime_64 | 1.000 | 0 / 200000 | 370 ns | 410 ns | 530 ns | 1.11 |
-| Miller-Rabin | carmichael_60plus | 1.113 | 0 / 200000 | 360 ns | 950 ns | 1.31 µs | 2.64 |
-| Miller-Rabin | hard_60plus | 1.332 | 1 / 200000 | 369 ns | 1.35 µs | 1.83 µs | 3.66 |
+| Fermat | prime_64 | 9.000 | 0 / 200000 | 3.24 µs | 3.54 µs | 4.55 µs | 1.09 |
+| Miller-Rabin | prime_64 | 9.000 | 0 / 200000 | 3.35 µs | 3.78 µs | 4.86 µs | 1.13 |
+| Fermat | rand_composite_64 | 1.000 | 0 / 200000 | 410 ns | 450 ns | 590 ns | 1.10 |
+| Miller-Rabin | rand_composite_64 | 1.000 | 0 / 200000 | 410 ns | 450 ns | 590 ns | 1.10 |
+| Fermat | semiprime_64 | 1.000 | 0 / 200000 | 410 ns | 450 ns | 590 ns | 1.10 |
+| Miller-Rabin | semiprime_64 | 1.000 | 0 / 200000 | 410 ns | 450 ns | 590 ns | 1.10 |
+| Fermat | carmichael_60plus | 9.000 | 199999 / 200000 | 3.1 µs | 3.44 µs | 4.48 µs | 1.11 |
+| Miller-Rabin | carmichael_60plus | 1.113 | 0 / 200000 | 400 ns | 1.05 µs | 1.46 µs | 2.62 |
+| Fermat | hard_60plus | 1.992 | 388 / 200000 | 550 ns | 2.58 µs | 3.33 µs | 4.69 |
+| Miller-Rabin | hard_60plus | 1.332 | 1 / 200000 | 400 ns | 1.48 µs | 2.06 µs | 3.70 |
 
 ## Bases for which one round returns prime (every base checked, odd composites up to 20,000)
 
@@ -110,33 +110,34 @@ Fermat's measured error is on average 0.0004 away from the exact value (φ(n) �
 
 | family | bits | deciding step | r | log2(n)^2 | values of a checked / required | time in step 5 | total |
 |---|---|---|---|---|---|---|---|
-| prime | 8 | poly_all_passed | 53 | 50.4 | 52 / 52 | 96.2% | 361 µs |
-| prime | 12 | poly_all_passed | 149 | 136.8 | 143 / 143 | 99.9% | 13.7 ms |
-| prime | 16 | poly_all_passed | 263 | 246.9 | 255 / 255 | 100.0% | 90.3 ms |
-| prime | 20 | poly_all_passed | 373 | 368.6 | 371 / 371 | 100.0% | 316 ms |
-| prime | 24 | poly_all_passed | 593 | 572.2 | 583 / 583 | 100.0% | 1.43 s |
-| prime | 28 | poly_all_passed | 769 | 742.1 | 755 / 755 | 100.0% | 3.58 s |
-| semiprime | 8 | factor_found | 83 | 51.3 | 0 / 0 | 0.0% | 10 µs |
-| semiprime | 12 | factor_found | 149 | 139.6 | 0 / 0 | 0.0% | 18.8 µs |
-| semiprime | 16 | factor_found | 239 | 227.3 | 0 / 0 | 0.0% | 41.1 µs |
-| semiprime | 20 | poly_mismatch | 383 | 366.5 | 1 / 375 | 92.3% | 962 µs |
-| semiprime | 24 | poly_mismatch | 569 | 532.8 | 1 / 551 | 94.1% | 2.4 ms |
-| semiprime | 28 | poly_mismatch | 773 | 767.8 | 1 / 770 | 95.1% | 5.02 ms |
-| semiprime | 32 | poly_mismatch | 977 | 970.7 | 1 / 974 | 96.4% | 8.92 ms |
-| semiprime | 36 | poly_mismatch | 1237 | 1229.2 | 1 / 1233 | 99.8% | 244 ms |
-| semiprime | 40 | poly_mismatch | 1553 | 1545.9 | 1 / 1549 | 99.8% | 452 ms |
-| semiprime | 44 | poly_mismatch | 1861 | 1856.3 | 1 / 1859 | 99.8% | 732 ms |
-| semiprime | 48 | poly_mismatch | 2309 | 2281.8 | 1 / 2295 | 99.9% | 1.33 s |
-| semiprime | 52 | poly_mismatch | 2621 | 2603.5 | 1 / 2612 | 99.9% | 1.91 s |
-| semiprime | 56 | poly_mismatch | 3041 | 3037.2 | 1 / 3039 | 99.9% | 2.85 s |
+| prime | 8 | poly_all_passed | 53 | 50.4 | 52 / 52 | 97.4% | 395 µs |
+| prime | 12 | poly_all_passed | 149 | 136.8 | 143 / 143 | 99.8% | 15.4 ms |
+| prime | 16 | poly_all_passed | 263 | 246.9 | 255 / 255 | 100.0% | 101 ms |
+| prime | 20 | poly_all_passed | 373 | 368.6 | 371 / 371 | 100.0% | 353 ms |
+| prime | 24 | poly_all_passed | 593 | 572.2 | 583 / 583 | 100.0% | 1.6 s |
+| prime | 28 | poly_all_passed | 769 | 742.1 | 755 / 755 | 100.0% | 3.99 s |
+| semiprime | 8 | factor_found | 83 | 51.3 | 0 / 0 | 0.0% | 11.4 µs |
+| semiprime | 12 | factor_found | 149 | 139.6 | 0 / 0 | 0.0% | 20.7 µs |
+| semiprime | 16 | factor_found | 239 | 227.3 | 0 / 0 | 0.0% | 46.1 µs |
+| semiprime | 20 | poly_mismatch | 383 | 366.5 | 1 / 375 | 92.2% | 1.07 ms |
+| semiprime | 24 | poly_mismatch | 569 | 532.8 | 1 / 551 | 94.0% | 2.69 ms |
+| semiprime | 28 | poly_mismatch | 773 | 767.8 | 1 / 770 | 94.9% | 5.6 ms |
+| semiprime | 32 | poly_mismatch | 977 | 970.7 | 1 / 974 | 96.2% | 9.95 ms |
+| semiprime | 36 | poly_mismatch | 1237 | 1229.2 | 1 / 1233 | 99.8% | 263 ms |
+| semiprime | 40 | poly_mismatch | 1553 | 1545.9 | 1 / 1549 | 99.8% | 486 ms |
+| semiprime | 44 | poly_mismatch | 1861 | 1856.3 | 1 / 1859 | 99.8% | 786 ms |
+| semiprime | 48 | poly_mismatch | 2309 | 2281.8 | 1 / 2295 | 99.9% | 1.43 s |
+| semiprime | 52 | poly_mismatch | 2621 | 2603.5 | 1 / 2612 | 99.9% | 2.04 s |
 
 ## Environment
 
 ```
 compiler: c++ (GCC) 16.2.1 20260810
 flags: -std=c++17 -O3 (CMake Release)
-cpu: AMD Ryzen 7 9800X3D 8-Core Processor
+cpu:  AMD Ryzen 7 9800X3D 8-Core Processor
+governor: performance, boost: 0
+pinned: taskset -c 2
 os: Linux 7.2.9-arch1-1
-date: 2026-11-03 20:19:02 AEDT
+date: 2026-11-03 23:15:29 AEDT
 python: Python 3.13.9
 ```

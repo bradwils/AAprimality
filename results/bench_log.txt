@@ -1,0 +1,184 @@
+time_bits.csv
+  fermat       prime           8 bits            197 ns
+  miller-rabin prime           8 bits            216 ns
+  aks          prime           8 bits         891651 ns
+  fermat       prime          12 bits            312 ns
+  miller-rabin prime          12 bits            356 ns
+  aks          prime          12 bits       14236995 ns
+  fermat       prime          16 bits            441 ns
+  miller-rabin prime          16 bits            515 ns
+  aks          prime          16 bits      101467428 ns
+  fermat       prime          20 bits            572 ns
+  miller-rabin prime          20 bits            646 ns
+  aks          prime          20 bits      351628904 ns
+  fermat       prime          24 bits            701 ns
+  miller-rabin prime          24 bits            788 ns
+  aks          prime          24 bits     1634194437 ns
+  fermat       prime          28 bits            859 ns
+  miller-rabin prime          28 bits            926 ns
+  aks          prime          28 bits     3987807206 ns
+  fermat       prime          32 bits           1015 ns
+  miller-rabin prime          32 bits           1096 ns
+  fermat       prime          36 bits           1335 ns
+  miller-rabin prime          36 bits           1434 ns
+  fermat       prime          40 bits           1571 ns
+  miller-rabin prime          40 bits           1672 ns
+  fermat       prime          44 bits           1766 ns
+  miller-rabin prime          44 bits           1881 ns
+  fermat       prime          48 bits           2118 ns
+  miller-rabin prime          48 bits           2220 ns
+  fermat       prime          52 bits           2410 ns
+  miller-rabin prime          52 bits           2531 ns
+  fermat       prime          56 bits           2668 ns
+  miller-rabin prime          56 bits           2801 ns
+  fermat       prime          60 bits           2913 ns
+  miller-rabin prime          60 bits           3052 ns
+  fermat       prime          64 bits           3193 ns
+  miller-rabin prime          64 bits           3340 ns
+  fermat       semiprime       8 bits             22 ns
+  miller-rabin semiprime       8 bits             20 ns
+  aks          semiprime       8 bits           6423 ns
+  fermat       semiprime      12 bits             37 ns
+  miller-rabin semiprime      12 bits             36 ns
+  aks          semiprime      12 bits          14969 ns
+  fermat       semiprime      16 bits             48 ns
+  miller-rabin semiprime      16 bits             47 ns
+  aks          semiprime      16 bits          42145 ns
+  fermat       semiprime      20 bits             65 ns
+  miller-rabin semiprime      20 bits             70 ns
+  aks          semiprime      20 bits        1097314 ns
+  fermat       semiprime      24 bits             84 ns
+  miller-rabin semiprime      24 bits             96 ns
+  aks          semiprime      24 bits        2622187 ns
+  fermat       semiprime      28 bits            105 ns
+  miller-rabin semiprime      28 bits            116 ns
+  aks          semiprime      28 bits        5486413 ns
+  fermat       semiprime      32 bits            131 ns
+  miller-rabin semiprime      32 bits            138 ns
+  aks          semiprime      32 bits       10339138 ns
+  fermat       semiprime      36 bits            156 ns
+  miller-rabin semiprime      36 bits            162 ns
+  aks          semiprime      36 bits      262700035 ns
+  fermat       semiprime      40 bits            185 ns
+  miller-rabin semiprime      40 bits            185 ns
+  aks          semiprime      40 bits      485848899 ns
+  fermat       semiprime      44 bits            206 ns
+  miller-rabin semiprime      44 bits            209 ns
+  aks          semiprime      44 bits      787494176 ns
+  fermat       semiprime      48 bits            237 ns
+  miller-rabin semiprime      48 bits            238 ns
+  aks          semiprime      48 bits     1428527011 ns
+  fermat       semiprime      52 bits            272 ns
+  miller-rabin semiprime      52 bits            269 ns
+  aks          semiprime      52 bits     2040945089 ns
+  fermat       semiprime      56 bits            300 ns
+  miller-rabin semiprime      56 bits            296 ns
+  fermat       semiprime      60 bits            328 ns
+  miller-rabin semiprime      60 bits            325 ns
+  fermat       semiprime      64 bits            360 ns
+  miller-rabin semiprime      64 bits            354 ns
+  fermat       rand_composite  8 bits             26 ns
+  miller-rabin rand_composite  8 bits             22 ns
+  aks          rand_composite  8 bits           5788 ns
+  fermat       rand_composite 12 bits             38 ns
+  miller-rabin rand_composite 12 bits             37 ns
+  aks          rand_composite 12 bits          17287 ns
+  fermat       rand_composite 16 bits             51 ns
+  miller-rabin rand_composite 16 bits             54 ns
+  aks          rand_composite 16 bits          37641 ns
+  fermat       rand_composite 20 bits             69 ns
+  miller-rabin rand_composite 20 bits             71 ns
+  aks          rand_composite 20 bits         113578 ns
+  fermat       rand_composite 24 bits             86 ns
+  miller-rabin rand_composite 24 bits             95 ns
+  aks          rand_composite 24 bits         409680 ns
+  fermat       rand_composite 28 bits            106 ns
+  miller-rabin rand_composite 28 bits            119 ns
+  aks          rand_composite 28 bits         557552 ns
+  fermat       rand_composite 32 bits            128 ns
+  miller-rabin rand_composite 32 bits            138 ns
+  aks          rand_composite 32 bits        1250127 ns
+  fermat       rand_composite 36 bits            161 ns
+  miller-rabin rand_composite 36 bits            164 ns
+  aks          rand_composite 36 bits      271193217 ns
+  fermat       rand_composite 40 bits            186 ns
+  miller-rabin rand_composite 40 bits            187 ns
+  aks          rand_composite 40 bits      467844190 ns
+  fermat       rand_composite 44 bits            208 ns
+  miller-rabin rand_composite 44 bits            210 ns
+  aks          rand_composite 44 bits       57638423 ns
+  fermat       rand_composite 48 bits            238 ns
+  miller-rabin rand_composite 48 bits            243 ns
+  aks          rand_composite 48 bits       94475506 ns
+  fermat       rand_composite 52 bits            272 ns
+  miller-rabin rand_composite 52 bits            275 ns
+  aks          rand_composite 52 bits     2071744805 ns
+  fermat       rand_composite 56 bits            299 ns
+  miller-rabin rand_composite 56 bits            299 ns
+  fermat       rand_composite 60 bits            327 ns
+  miller-rabin rand_composite 60 bits            334 ns
+  fermat       rand_composite 64 bits            356 ns
+  miller-rabin rand_composite 64 bits            359 ns
+  fermat       prime_square    8 bits             24 ns
+  miller-rabin prime_square    8 bits             22 ns
+  aks          prime_square    8 bits            384 ns
+  fermat       prime_square   12 bits             36 ns
+  miller-rabin prime_square   12 bits             36 ns
+  aks          prime_square   12 bits            383 ns
+  fermat       prime_square   16 bits             47 ns
+  miller-rabin prime_square   16 bits             47 ns
+  aks          prime_square   16 bits            384 ns
+  fermat       prime_square   20 bits             60 ns
+  miller-rabin prime_square   20 bits             59 ns
+  aks          prime_square   20 bits            382 ns
+  fermat       prime_square   24 bits             74 ns
+  miller-rabin prime_square   24 bits             74 ns
+  aks          prime_square   24 bits            379 ns
+  fermat       prime_square   28 bits             90 ns
+  miller-rabin prime_square   28 bits             86 ns
+  aks          prime_square   28 bits            382 ns
+  fermat       prime_square   32 bits            108 ns
+  miller-rabin prime_square   32 bits            105 ns
+  aks          prime_square   32 bits            381 ns
+  fermat       prime_square   36 bits            144 ns
+  miller-rabin prime_square   36 bits            143 ns
+  aks          prime_square   36 bits            381 ns
+  fermat       prime_square   40 bits            171 ns
+  miller-rabin prime_square   40 bits            169 ns
+  aks          prime_square   40 bits            380 ns
+  fermat       prime_square   44 bits            192 ns
+  miller-rabin prime_square   44 bits            190 ns
+  aks          prime_square   44 bits            382 ns
+  fermat       prime_square   48 bits            233 ns
+  miller-rabin prime_square   48 bits            234 ns
+  aks          prime_square   48 bits            382 ns
+  fermat       prime_square   52 bits            266 ns
+  miller-rabin prime_square   52 bits            275 ns
+  aks          prime_square   52 bits            380 ns
+  fermat       prime_square   56 bits            294 ns
+  miller-rabin prime_square   56 bits            306 ns
+  aks          prime_square   56 bits            380 ns
+  fermat       prime_square   60 bits            327 ns
+  miller-rabin prime_square   60 bits            328 ns
+  aks          prime_square   60 bits            381 ns
+  fermat       prime_square   64 bits            360 ns
+  miller-rabin prime_square   64 bits            367 ns
+  aks          prime_square   64 bits            380 ns
+time_k.csv
+tails.csv
+error_vs_k.csv
+  fermat       rand_composite_64  error k=1 0.0000  k=9 0.00e+00
+  fermat       semiprime_64       error k=1 0.0000  k=9 0.00e+00
+  fermat       carmichael         error k=1 0.9904  k=9 9.60e-01
+  fermat       spsp2              error k=1 0.1919  k=9 3.46e-02
+  fermat       spsp_multi         error k=1 0.7177  k=9 5.60e-01
+  fermat       hard               error k=1 0.5000  k=9 1.90e-03
+  miller-rabin rand_composite_64  error k=1 0.0000  k=9 0.00e+00
+  miller-rabin semiprime_64       error k=1 0.0000  k=9 0.00e+00
+  miller-rabin carmichael         error k=1 0.0967  k=9 0.00e+00
+  miller-rabin spsp2              error k=1 0.0541  k=9 0.00e+00
+  miller-rabin spsp_multi         error k=1 0.2018  k=9 3.00e-06
+  miller-rabin hard               error k=1 0.2499  k=9 3.00e-06
+carmichael_k1.csv
+liars.csv
+aks_steps.csv

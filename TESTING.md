@@ -56,9 +56,11 @@ The timers wrap only the calls being measured, never loading or generating data.
 ### Fairness
 
 - The same instances, seeds, `mulmod` and `powmod` (`common/modarith.hpp`) are used for every algorithm.
+- In `time_bits`, `time_k` and `tails` the algorithms are timed back to back for each input set (interleaved), so drift in clock speed or temperature over the run affects all of them equally.
+- `run_all.sh` pins the benchmark to core 2 with `taskset` (Linux), so the process is not moved between cores mid-run. Core 0 is avoided because it usually handles most hardware interrupts.
 - One build (`-O3`) and one benchmark program. The benchmark has no special-case code for any algorithm.
 - AKS is the plain textbook algorithm: schoolbook polynomial squaring, no NTT and a single thread. For n below 2^32 a faster 64-bit arithmetic path is used. This makes its time jump at 32 bits (visible in `aks_steps.csv`); the jump comes from the implementation, not from the algorithm's complexity.
-- The machine used is recorded in `results/env.txt`.
+- The machine, CPU governor and boost state are recorded in `results/env.txt`. With `run_all.sh --fixed-clock` (Linux, sudo), the run uses the `performance` governor with boost off, so the clock speed does not change between cells; the previous settings are restored afterwards.
 
 ## Using the results
 

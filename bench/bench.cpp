@@ -13,6 +13,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <iterator>
 #include <numeric>
 #include <string>
 #include <vector>
@@ -95,19 +96,26 @@ void write_cell(FILE* f, const Algorithm& a, const char* fam, int bits, int k, c
 #define CELL_HEADER "algorithm,family,bits,k,instances,reps,wrong,median_ns,min_ns,max_ns"
 
 // Time per call at each bit length, for every algorithm (k = 9 for Fermat and Miller-Rabin).
+// In this and the next two experiments the algorithms are timed back to back for
+// each input set, so any drift in clock speed or temperature affects all of them.
 void time_bits() {
     FILE* f = open_out("time_bits.csv", CELL_HEADER);
-    for (const Algorithm& a : ALGORITHMS)
-        for (const char* fam : {"prime", "semiprime", "rand_composite", "prime_square"})
-            for (int bits = 8; bits <= 64; bits += 4) {
-                auto v = of_family(all, fam, bits, bits);
-                if (v.empty()) continue;
+    for (const char* fam : {"prime", "semiprime", "rand_composite", "prime_square"}) {
+        bool stopped[std::size(ALGORITHMS)] = {};
+        for (int bits = 8; bits <= 64; bits += 4) {
+            auto v = of_family(all, fam, bits, bits);
+            if (v.empty()) continue;
+            for (size_t i = 0; i < std::size(ALGORITHMS); i++) {
+                const Algorithm& a = ALGORITHMS[i];
+                if (stopped[i]) continue;
                 int k = a.randomized ? K : 0;
                 Cell c = time_cell(a, v, k);
                 write_cell(f, a, fam, bits, k, c);
                 std::printf("  %-12s %-14s %2d bits %14.0f ns\n", a.name, fam, bits, c.median);
-                if (c.median > max_seconds * 1e9) break;
+                stopped[i] = c.median > max_seconds * 1e9;
             }
+        }
+    }
     std::fclose(f);
 }
 
@@ -116,11 +124,11 @@ void time_k() {
     FILE* f = open_out("time_k.csv", CELL_HEADER);
     const Subset sets[] = {{"prime", "prime", 64, 64}, {"rand_composite", "rand_composite", 64, 64},
                            {"carmichael", "carmichael", 60, 64}};
-    for (const Algorithm* a : RANDOMIZED)
-        for (const Subset& s : sets) {
-            auto v = of_family(all, s.family, s.lo, s.hi);
-            for (int k = 1; k <= 20; k++) write_cell(f, *a, s.name, s.lo, k, time_cell(*a, v, k));
-        }
+    for (const Subset& s : sets) {
+        auto v = of_family(all, s.family, s.lo, s.hi);
+        for (int k = 1; k <= 20; k++)
+            for (const Algorithm* a : RANDOMIZED) write_cell(f, *a, s.name, s.lo, k, time_cell(*a, v, k));
+    }
     std::fclose(f);
 }
 
@@ -142,8 +150,8 @@ void tails() {
     FILE* f = open_out("tails.csv", "algorithm,subset,instances,calls,k,mean_rounds,wrong,"
                                     "mean_ns,p50_ns,p90_ns,p99_ns,p999_ns,max_ns,timer_tick_ns");
     const int CALLS = 200000;
-    for (const Algorithm* a : RANDOMIZED)
-        for (const Subset& s : FAMILIES_64) {
+    for (const Subset& s : FAMILIES_64)
+        for (const Algorithm* a : RANDOMIZED) {
             auto v = of_family(all, s.family, s.lo, s.hi);
             std::mt19937_64 rng(SEED);
             TestParams p{K, rng};
@@ -265,6 +273,7 @@ void aks_steps() {
 }  // namespace
 
 int main(int argc, char** argv) {
+    std::setvbuf(stdout, nullptr, _IOLBF, 0);
     std::string exp = "all";
     for (int i = 1; i < argc; i++) {
         std::string arg = argv[i];

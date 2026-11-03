@@ -31,6 +31,8 @@ sh run_all.sh
 
 This generates the data (once), builds in Release (`-O3`), runs the tests and every experiment, and draws the charts. Leave the machine idle while it runs.
 
+On Linux, `sh run_all.sh --fixed-clock` asks for sudo, sets the CPU to the `performance` governor with boost off for the run, and restores the previous settings afterwards. A fixed clock speed makes timings more consistent between cells and runs.
+
 ## Run pieces by hand
 
 ```sh

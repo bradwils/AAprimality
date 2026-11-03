@@ -2,7 +2,7 @@
 [fermat]
     every n up to 200000 against a sieve
     50886 labelled instances from data/instances.csv
-    accepted 1696 composites (expected for Fermat), e.g. 2152302898747 3474749660383 3825123056546413051 252601 488881 512461 1152271 1193221
+    returned prime for 1696 composites (expected for Fermat), e.g. 2152302898747 3474749660383 3825123056546413051 252601 488881 512461 1152271 1193221
 [miller-rabin]
     every n up to 200000 against a sieve
     50886 labelled instances from data/instances.csv
