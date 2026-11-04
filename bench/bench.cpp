@@ -1,7 +1,7 @@
 // Experiments comparing Fermat, Miller-Rabin and AKS on the shared data set.
 // Run from the repo root after scripts/gen_data.py:
 //
-//   build/bench [all|time_bits|time_k|tails|error|carmichael|liars|aks_steps|aks_32bit]
+//   build/bench [all|time_bits|time_k|tails|error|carmichael|liars|aks_steps|aks_primes|aks_32bit]
 //               [--max-seconds S] [--calls N]
 //
 // Each experiment writes results/<name>.csv. The same instances and seeds are
@@ -270,12 +270,11 @@ void aks_steps() {
     std::fclose(f);
 }
 
-// AKS on balanced semiprimes of 29-35 bits. Below 2^32 the coefficient products
-// are summed in 64-bit arithmetic; from 2^32 each one needs a 128-bit remainder.
+// AKS on every instance of one family, median of 5 calls each.
 // time / (squarings * r^2) is the cost of one coefficient multiply-add.
-void aks_32bit() {
-    FILE* f = open_out("aks_32bit.csv", "bits,n,r,a_checked,squarings,correct,median_s,ns_per_coefficient_op");
-    for (const Instance& in : of_family(all, "semiprime_near_2^32", 1, 64)) {
+void aks_family(const char* file, const char* family) {
+    FILE* f = open_out(file, "bits,n,r,a_checked,squarings,correct,median_s,ns_per_coefficient_op");
+    for (const Instance& in : of_family(all, family, 1, 64)) {
         AksStats s;
         bool correct = aks_with_stats(in.n, &s) == in.prime;
         std::vector<double> t;
@@ -292,6 +291,13 @@ void aks_32bit() {
     }
     std::fclose(f);
 }
+
+// Primes every 2 bits from 8 to 26, 3 per size, for fitting how AKS time grows.
+void aks_primes() { aks_family("aks_primes.csv", "prime_8_to_26"); }
+
+// Balanced semiprimes of 29-35 bits. Below 2^32 the coefficient products are
+// summed in 64-bit arithmetic; from 2^32 each one needs a 128-bit remainder.
+void aks_32bit() { aks_family("aks_32bit.csv", "semiprime_near_2^32"); }
 
 }  // namespace
 
@@ -313,7 +319,8 @@ int main(int argc, char** argv) {
 
     struct { const char* name; void (*fn)(); } experiments[] = {
         {"time_bits", time_bits}, {"time_k", time_k}, {"tails", tails}, {"error", error},
-        {"carmichael", carmichael}, {"liars", liars}, {"aks_steps", aks_steps}, {"aks_32bit", aks_32bit},
+        {"carmichael", carmichael}, {"liars", liars}, {"aks_steps", aks_steps}, {"aks_primes", aks_primes},
+        {"aks_32bit", aks_32bit},
     };
     bool ran = false;
     for (auto& e : experiments)

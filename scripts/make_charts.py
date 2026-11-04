@@ -251,6 +251,35 @@ def aks_steps():
             f"{float(r['t_step5_s']) / float(r['total_s']):.1%}", fmt_ns(float(r["total_s"]) * 1e9)] for r in rows])
 
 
+def aks_primes():
+    rows = read("aks_primes.csv")
+    if not rows:
+        return
+    by = defaultdict(list)
+    for r in rows:
+        by[int(r["bits"])].append(r)
+    bits = sorted(by)
+    med = lambda b, col: sorted(float(r[col]) for r in by[b])[len(by[b]) // 2]
+    pts = [(b, med(b, "median_s")) for b in bits if b >= 12]
+    k = slope(pts)
+    c = math.exp(sum(math.log(t) - k * math.log(b) for b, t in pts) / len(pts))
+    fig, ax = plt.subplots(figsize=(7.5, 4.2))
+    ax.plot([int(r["bits"]) for r in rows], [float(r["median_s"]) for r in rows], "o", ms=4, color=COLOR["aks"],
+            alpha=0.5, label="one prime (median of 5 calls)")
+    ax.plot([b for b, _ in pts], [c * b ** k for b, _ in pts], "k--", lw=1, label=f"fit: time ∝ bits^{k:.2f}")
+    ax.set(xscale="log", yscale="log", xlabel="bits of n (log scale)", ylabel="seconds (log scale)",
+           title="AKS on primes, 3 per size")
+    ax.set_xticks(bits, [str(b) for b in bits])
+    ax.minorticks_off()
+    ax.legend(fontsize=8)
+    save(fig, "aks_primes.png")
+    table("AKS on primes, every 2 bits", ["bits", "median r", "median values of a checked", "median time"],
+          [[b, f"{med(b, 'r'):.0f}", f"{med(b, 'a_checked'):.0f}", fmt_ns(med(b, "median_s") * 1e9)] for b in bits],
+          f"3 primes per size, each timed 5 times. Least-squares fit of log time against log bits over the per-size "
+          f"medians from {pts[0][0]} to {pts[-1][0]} bits: time grows as bits^{k:.2f}. "
+          f"Correct results: {sum(r['correct'] == '1' for r in rows)} / {len(rows)}.")
+
+
 def aks_32bit():
     rows = read("aks_32bit.csv")
     if not rows:
@@ -280,7 +309,7 @@ def aks_32bit():
 
 
 if __name__ == "__main__":
-    for chart in (time_vs_bits, time_vs_k, error_vs_k, tails, liars, carmichael, aks_steps, aks_32bit):
+    for chart in (time_vs_bits, time_vs_k, error_vs_k, tails, liars, carmichael, aks_steps, aks_primes, aks_32bit):
         chart()
     if os.path.exists(os.path.join(RES, "env.txt")):
         md.extend(["", "## Environment", "", "```", open(os.path.join(RES, "env.txt")).read().strip(), "```"])

@@ -25,6 +25,8 @@ HARD_PER_BUCKET = 300              # worst-case composites per bit length
 SQUARE_PER_BUCKET = 100            # prime squares per bit length (AKS step 1)
 NEAR_2_32_BITS = range(29, 36)     # semiprimes either side of 2^32 (AKS arithmetic changes there)
 NEAR_2_32_PER_BUCKET = 5
+AKS_PRIME_BITS = range(8, 27, 2)   # every 2 bits, for fitting AKS growth on primes
+AKS_PRIME_PER_BUCKET = 3
 CARMICHAEL_LIMIT = 10_000_000      # brute-force search bound
 CHERNICK_M_MAX = 242_000           # 1296 m^3 < 2^64 up to about this m
 
@@ -211,6 +213,10 @@ def main():
         for _ in range(NEAR_2_32_PER_BUCKET):
             n, note = semiprime(bits)
             rows.append(("semiprime_near_2^32", bits, n, "composite", note))
+
+    for bits in AKS_PRIME_BITS:
+        for _ in range(AKS_PRIME_PER_BUCKET):
+            rows.append(("prime_8_to_26", bits, rand_prime(bits), "prime", ""))
 
     write(rows, os.path.join(DATA, "instances.csv"), ["family", "bits", "n", "label", "note"])
     counts = {}

@@ -15,6 +15,7 @@ Each number is labelled prime or composite by a separate Python prime check. Thi
 | `semiprime` | 8–64 bits | 1000 per size | Two prime factors of similar size, so no factor is found in AKS's gcd step and the slow step 5 runs |
 | `prime_square` | 8–64 bits | 100 per size | Returned composite at AKS step 1, the perfect-power check |
 | `semiprime_near_2^32` | 29–35 bits | 5 per size | Balanced semiprimes either side of 2^32, where the AKS arithmetic changes (`aks_32bit`) |
+| `prime_8_to_26` | 8–26 bits, step 2 | 3 per size | Primes at every second bit length, for fitting how AKS time grows (`aks_primes`) |
 | `carmichael` | up to 64 bits | 1777 | Every Carmichael number below 10^7, plus larger ones of the form (6m+1)(12m+1)(18m+1). One Fermat round returns prime for every base that shares no factor with n |
 | `spsp2` | up to 24 bits | 162 | Composites that pass a Miller-Rabin round with base 2, below 10^7 |
 | `spsp_multi` | up to 62 bits | 7 | Composites that pass Miller-Rabin rounds with each of the first 2–9 prime bases (from Jaeschke) |
@@ -44,6 +45,7 @@ The timers wrap only the calls being measured, never loading or generating data.
 | `carmichael` | `carmichael_k1.csv`, `carmichael_k1.png` | The probability that one round returns prime for each Carmichael number, from 2000 trials each | How do Fermat and Miller-Rabin compare on the inputs that are worst for Fermat? |
 | `liars` | `liars.csv`, `liars.png` | For each odd composite up to 20 000, the fraction of all bases for which one round returns prime | How close does any composite get to Miller-Rabin's proven limit of 1/4? |
 | `aks_steps` | `aks_steps.csv`, `aks_steps.png` | One AKS call per bit length, timed step by step, with r and the step at which the result was determined | Which AKS step accounts for the time, and how large does r get? |
+| `aks_primes` | `aks_primes.csv`, `aks_primes.png` | AKS on 3 primes at every second bit length from 8 to 26, median of 5 calls each, with a least-squares fit of log time against log bits | How fast does AKS time grow on primes, compared with the predicted log⁷ n? |
 | `aks_32bit` | `aks_32bit.csv`, `aks_32bit.png` | AKS on 5 semiprimes at each size from 29 to 35 bits, median of 5 calls each, and the time per coefficient multiply-add, time ÷ (squarings × r²) | How much does AKS slow down once n passes 2^32, and is the cause r or the cost per operation? |
 
 ### How timing works

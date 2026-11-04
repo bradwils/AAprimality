@@ -129,6 +129,23 @@ Fermat's measured error is on average 0.0004 away from the exact value (φ(n) �
 | semiprime | 48 | poly_mismatch | 2309 | 2281.8 | 1 / 2295 | 99.9% | 1.43 s |
 | semiprime | 52 | poly_mismatch | 2621 | 2603.5 | 1 / 2612 | 99.9% | 2.04 s |
 
+## AKS on primes, every 2 bits
+
+3 primes per size, each timed 5 times. Least-squares fit of log time against log bits over the per-size medians from 12 to 26 bits: time grows as bits^6.78. Correct results: 30 / 30.
+
+| bits | median r | median values of a checked | median time |
+|---|---|---|---|
+| 8 | 59 | 57 | 531 µs |
+| 10 | 97 | 93 | 3.23 ms |
+| 12 | 139 | 130 | 11 ms |
+| 14 | 199 | 190 | 34.6 ms |
+| 16 | 233 | 232 | 66.1 ms |
+| 18 | 331 | 319 | 199 ms |
+| 20 | 383 | 380 | 340 ms |
+| 22 | 479 | 474 | 714 ms |
+| 24 | 569 | 568 | 1.29 s |
+| 26 | 641 | 640 | 1.99 s |
+
 ## AKS either side of 2^32 (balanced semiprimes, one value of a checked)
 
 From 32 to 33 bits the median time grows 16.2×, while r grows only from 1013 to 1063.
