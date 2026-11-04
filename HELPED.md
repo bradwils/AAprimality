@@ -4,11 +4,11 @@ date: 2026-10-23
 subject: Advanced Algorithms
 tags: [assignment, change-log]
 ---
-
+ 
 # Assignment 3 — Change Log
-
+ 
 Log of notable changes to this repo, per [CLAUDE.md](CLAUDE.md) §3. A change is notable if it fixes more than two bugs, is a major rewrite or restructure, or is more than a small chore.
-
+ 
 | Date | Overview | File(s) | Detail |
 |---|---|---|---|
 | 2026-10-27 | Initial draft of AKS, shared interface, tests, Makefile | `implementations/aks/include/aks.hpp`, `implementations/aks/src/aks.cpp`, `implementations/aks/tests/test_aks.cpp`, `common/common.hpp`, `Makefile` | Wrote the full textbook AKS (perfect-power check, order search for `r`, gcd loop, polynomial congruence check) with 128-bit modular arithmetic so any 64-bit `n` is accepted. Added a `Stats` struct so each run reports `r`, number of `a` values checked and per-step times. |
@@ -18,15 +18,21 @@ Log of notable changes to this repo, per [CLAUDE.md](CLAUDE.md) §3. A change is
 | 2026-10-27 | Ran benchmarks, found and documented 32-bit cliff, added plots | `implementations/aks/results/*.csv`, `implementations/aks/scripts/plot_aks.py`, `implementations/aks/README.md` | Ran prime (8-26 bits), composite (8-40 bits) and 30-35 bit semiprime sweeps; all answers matched the oracle, and the slow test tier (including 2^32-5) passes in about 2 minutes. Discovered a 17x slowdown when `n` crosses 2^32 (64-bit lazy path vs 128-bit division), documented under "Known limitations" rather than hidden. |
 | 2026-10-27 | Video script (AKS portions only) | `implementations/aks/docs/video_script_aks.md` | Drafted the AKS-only parts of the required video structure with timing budget and results placeholders filled from the benchmark CSV. Parts needing Fermat and Miller-Rabin are marked as pending. |
 | 2026-11-02 | Restructured repo into per-implementation folders with shared build, oracle and benchmark | `Makefile`, `common/`, `bench/bench.cpp`, `implementations/aks/**`, `.gitignore`, `README.md`, `guidance.md`, `HELPED.md` | Moved the shared benchmark, `common.hpp` and a new trial-division `oracle.hpp` to the root, replaced the per-folder Makefile with one root Makefile that auto-discovers `implementations/*/src`, and made the plot script path-independent. Found that the root `.gitignore` ignored every file named `Makefile` (so no Makefile could ever be committed) and removed that line. Merged the AKS-folder `HELPED.md` and `guidance.md` into the root files. |
-
+| 2026-11-04 | Report gap analysis and section-by-section edit list | `Advanced Algorithms A2` (Google Doc, not edited directly), `implementations/aks/results/*.csv`, `implementations/aks/docs/video_script_aks.md` | Read the report against the assignment brief and the repo, and listed what was missing or wrong: empty AKS sections, duplicated and cut-off paragraphs, leftover scratch text, the Xeon vs Apple M3 hardware mismatch, and an unverifiable fixed-4.7 GHz clock claim. Gave an edit list for every report section. |
+| 2026-11-04 | Drafted report text for AKS and shared sections | `Advanced Algorithms A2` (Sections 1-6, References) | Drafted the AKS description, complexity and prediction paragraphs, a blind-vs-informed predictions table, methodology and clock caveat, results prose, surprises (2^32 cliff, Fermat on Carmichael numbers, tight 1/4 bound), next steps and references. Individual reflection, other members' contributions and personal AI-use paragraphs were deliberately left for each member to write. |
+| 2026-11-04 | Recomputed the AKS extrapolation to 1024 bits | `implementations/aks/results/aks_primes.csv` | Fitted a log-log least-squares line to primes of 12-26 bits (slope 6.80) and extrapolated to 64, 128 and 1024 bits, giving about 12,700 years at 1024 bits (about 10^6 years with multi-word arithmetic) against the report's earlier 3,500. The fit range and caveats are stated in the report. |
+| 2026-11-04 | Rewrote the report's "AKS is slow" section as "AKS: cost and scaling" | `Advanced Algorithms A2` (Section 4) | Kept the group's step-share table and prose, corrected the claim about the proof's bound on r (O(log^5 n), not O(log^2 n)), and added cost-per-operation, scaling and 52-bit anchor paragraphs. The new numbers are AI arithmetic from the table and should be checked against the instrumented counters and the Apple M3 re-run. |
+ 
 ## Where the AI was wrong, unhelpful or misleading (candidates for the AI-use disclosure)
-
+ 
 These are real events from this session, kept here so the group can cite them (the assignment needs at least 3 across the group).
-
+ 
 1. **Wrong test data.** The AI asserted that 94906249 equals 9739^2 when writing the perfect-power tests. It is prime (9739^2 is 94848121). It was only caught because AKS (correctly) returned "prime", which disagreed with the test's assumption; fixed by computing squares in code (`9739ULL * 9739ULL`) instead of typing constants.
 2. **Unmeasured assumptions about test cost.** The AI wrote a test suite with large primes and a 20000 exhaustive range without estimating AKS run time first. The first run timed out at 2 minutes and the revised one still took 2m21s; the fix came only after timing individual inputs.
 3. **Optimisation oversold.** The AI expected the squaring rewrite and `-O3` to give a large speed-up; the measured gain was about 14% and `-O3` gave none. AKS's cost is dominated by the sheer count of `O(r^2)` squarings, not by loop overhead.
 4. **Tooling slip.** The AI used shell brace expansion (`mkdir -p a/{b,c}`) in a shell that does not support it, so the first batch of file writes silently failed and had to be redone. Output only revealed this because the error message was read.
 5. **Output truncated by the AI's own command.** A `cut -c1-120` made a CSV value look like `0.0`; the AI briefly suspected a timing bug before noticing the line was truncated.
 6. **Build file that could never be committed.** The AI's Makefile was silently ignored by the repository's inherited `.gitignore` (which lists `Makefile` under CMake outputs), so the first agent commit contained no way to build the code. Found during restructuring by running `git status` and the commit's file list, not by the AI at the time.
-
+7. **Assumed a report section was empty.** The AI saw only the figure placeholder under "AKS is slow" and told the author it had no text, when the author's document already had a fuller draft. It was caught only when the author pasted the real section, and the final rewrite kept the author's table and prose.
+8. **Numbers from the wrong machine.** The AI's first draft quoted AKS figures (for example a 760x prime-to-semiprime ratio, r of about 660-700) taken from the earlier Xeon runs, while the report states results come from the Apple M3. The author's newer table showed a different ratio (about 700x), so these figures are marked "verify" until the M3 re-run replaces them.
+ 
