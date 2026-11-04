@@ -1,7 +1,7 @@
 // Experiments comparing Fermat, Miller-Rabin and AKS on the shared data set.
 // Run from the repo root after scripts/gen_data.py:
 //
-//   build/bench [all|time_bits|time_k|tails|error|carmichael|liars|aks_steps]
+//   build/bench [all|time_bits|time_k|tails|error|carmichael|liars|aks_steps|aks_32bit]
 //               [--max-seconds S] [--calls N]
 //
 // Each experiment writes results/<name>.csv. The same instances and seeds are
@@ -270,6 +270,29 @@ void aks_steps() {
     std::fclose(f);
 }
 
+// AKS on balanced semiprimes of 29-35 bits. Below 2^32 the coefficient products
+// are summed in 64-bit arithmetic; from 2^32 each one needs a 128-bit remainder.
+// time / (squarings * r^2) is the cost of one coefficient multiply-add.
+void aks_32bit() {
+    FILE* f = open_out("aks_32bit.csv", "bits,n,r,a_checked,squarings,correct,median_s,ns_per_coefficient_op");
+    for (const Instance& in : of_family(all, "semiprime_near_2^32", 1, 64)) {
+        AksStats s;
+        bool correct = aks_with_stats(in.n, &s) == in.prime;
+        std::vector<double> t;
+        for (int r = 0; r < 5; r++) {
+            double t0 = now_ns();
+            sink = aks_with_stats(in.n, nullptr);
+            t.push_back((now_ns() - t0) / 1e9);
+        }
+        double med = pct(t, 0.5);
+        std::fprintf(f, "%d,%llu,%llu,%llu,%llu,%d,%.4e,%.3f\n", in.bits, (unsigned long long)in.n,
+                     (unsigned long long)s.r, (unsigned long long)s.a_checked, (unsigned long long)s.squarings,
+                     correct, med, med * 1e9 / ((double)s.squarings * s.r * s.r));
+        std::printf("  aks %2d bits  r %4llu  %8.4f s\n", in.bits, (unsigned long long)s.r, med);
+    }
+    std::fclose(f);
+}
+
 }  // namespace
 
 int main(int argc, char** argv) {
@@ -290,7 +313,7 @@ int main(int argc, char** argv) {
 
     struct { const char* name; void (*fn)(); } experiments[] = {
         {"time_bits", time_bits}, {"time_k", time_k}, {"tails", tails}, {"error", error},
-        {"carmichael", carmichael}, {"liars", liars}, {"aks_steps", aks_steps},
+        {"carmichael", carmichael}, {"liars", liars}, {"aks_steps", aks_steps}, {"aks_32bit", aks_32bit},
     };
     bool ran = false;
     for (auto& e : experiments)

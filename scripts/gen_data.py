@@ -23,6 +23,8 @@ BITS = list(range(8, 65, 4))       # 8, 12, ..., 64
 PER_BUCKET = 1000                  # instances per (family, bit length)
 HARD_PER_BUCKET = 300              # worst-case composites per bit length
 SQUARE_PER_BUCKET = 100            # prime squares per bit length (AKS step 1)
+NEAR_2_32_BITS = range(29, 36)     # semiprimes either side of 2^32 (AKS arithmetic changes there)
+NEAR_2_32_PER_BUCKET = 5
 CARMICHAEL_LIMIT = 10_000_000      # brute-force search bound
 CHERNICK_M_MAX = 242_000           # 1296 m^3 < 2^64 up to about this m
 
@@ -204,6 +206,11 @@ def main():
         for _ in range(SQUARE_PER_BUCKET):
             p = prime_square_root(bits)
             rows.append(("prime_square", bits, p * p, "composite", f"{p}^2"))
+
+    for bits in NEAR_2_32_BITS:
+        for _ in range(NEAR_2_32_PER_BUCKET):
+            n, note = semiprime(bits)
+            rows.append(("semiprime_near_2^32", bits, n, "composite", note))
 
     write(rows, os.path.join(DATA, "instances.csv"), ["family", "bits", "n", "label", "note"])
     counts = {}

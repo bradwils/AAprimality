@@ -251,8 +251,36 @@ def aks_steps():
             f"{float(r['t_step5_s']) / float(r['total_s']):.1%}", fmt_ns(float(r["total_s"]) * 1e9)] for r in rows])
 
 
+def aks_32bit():
+    rows = read("aks_32bit.csv")
+    if not rows:
+        return
+    by = defaultdict(list)
+    for r in rows:
+        by[int(r["bits"])].append(r)
+    bits = sorted(by)
+    med = lambda b, col: sorted(float(r[col]) for r in by[b])[len(by[b]) // 2]
+    fig, (a1, a2) = plt.subplots(1, 2, figsize=(12, 4.2))
+    a1.plot([int(r["bits"]) for r in rows], [float(r["median_s"]) * 1e3 for r in rows], "o", ms=4, color=COLOR["aks"], alpha=0.5)
+    a1.plot(bits, [med(b, "median_s") * 1e3 for b in bits], "-", color=COLOR["aks"])
+    a1.set(yscale="log", xlabel="bits of n", ylabel="time per call (ms, log scale)", title="AKS on balanced semiprimes")
+    a2.bar(bits, [med(b, "ns_per_coefficient_op") for b in bits], color=COLOR["aks"])
+    a2.set(xlabel="bits of n", ylabel="ns", title="Time per coefficient multiply-add")
+    for ax in (a1, a2):
+        ax.axvline(32.5, color="k", ls="--", lw=1)
+        ax.set_xticks(bits)
+    save(fig, "aks_32bit.png")
+    note = ""
+    if 32 in by and 33 in by:
+        note = f"From 32 to 33 bits the median time grows {med(33, 'median_s') / med(32, 'median_s'):.1f}×, while r grows only from {med(32, 'r'):.0f} to {med(33, 'r'):.0f}."
+    table("AKS either side of 2^32 (balanced semiprimes, one value of a checked)",
+          ["bits", "median r", "median time", "time per coefficient multiply-add", "correct"],
+          [[b, f"{med(b, 'r'):.0f}", fmt_ns(med(b, "median_s") * 1e9), f"{med(b, 'ns_per_coefficient_op'):.2f} ns",
+            f"{sum(r['correct'] == '1' for r in by[b])} / {len(by[b])}"] for b in bits], note)
+
+
 if __name__ == "__main__":
-    for chart in (time_vs_bits, time_vs_k, error_vs_k, tails, liars, carmichael, aks_steps):
+    for chart in (time_vs_bits, time_vs_k, error_vs_k, tails, liars, carmichael, aks_steps, aks_32bit):
         chart()
     if os.path.exists(os.path.join(RES, "env.txt")):
         md.extend(["", "## Environment", "", "```", open(os.path.join(RES, "env.txt")).read().strip(), "```"])

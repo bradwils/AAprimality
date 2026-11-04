@@ -14,6 +14,7 @@ Each number is labelled prime or composite by a separate Python prime check. Thi
 | `rand_composite` | 8–64 bits | 1000 per size | A typical input. Most have a small factor |
 | `semiprime` | 8–64 bits | 1000 per size | Two prime factors of similar size, so no factor is found in AKS's gcd step and the slow step 5 runs |
 | `prime_square` | 8–64 bits | 100 per size | Returned composite at AKS step 1, the perfect-power check |
+| `semiprime_near_2^32` | 29–35 bits | 5 per size | Balanced semiprimes either side of 2^32, where the AKS arithmetic changes (`aks_32bit`) |
 | `carmichael` | up to 64 bits | 1777 | Every Carmichael number below 10^7, plus larger ones of the form (6m+1)(12m+1)(18m+1). One Fermat round returns prime for every base that shares no factor with n |
 | `spsp2` | up to 24 bits | 162 | Composites that pass a Miller-Rabin round with base 2, below 10^7 |
 | `spsp_multi` | up to 62 bits | 7 | Composites that pass Miller-Rabin rounds with each of the first 2–9 prime bases (from Jaeschke) |
@@ -43,6 +44,7 @@ The timers wrap only the calls being measured, never loading or generating data.
 | `carmichael` | `carmichael_k1.csv`, `carmichael_k1.png` | The probability that one round returns prime for each Carmichael number, from 2000 trials each | How do Fermat and Miller-Rabin compare on the inputs that are worst for Fermat? |
 | `liars` | `liars.csv`, `liars.png` | For each odd composite up to 20 000, the fraction of all bases for which one round returns prime | How close does any composite get to Miller-Rabin's proven limit of 1/4? |
 | `aks_steps` | `aks_steps.csv`, `aks_steps.png` | One AKS call per bit length, timed step by step, with r and the step at which the result was determined | Which AKS step accounts for the time, and how large does r get? |
+| `aks_32bit` | `aks_32bit.csv`, `aks_32bit.png` | AKS on 5 semiprimes at each size from 29 to 35 bits, median of 5 calls each, and the time per coefficient multiply-add, time ÷ (squarings × r²) | How much does AKS slow down once n passes 2^32, and is the cause r or the cost per operation? |
 
 ### How timing works
 
@@ -59,7 +61,7 @@ The timers wrap only the calls being measured, never loading or generating data.
 - In `time_bits`, `time_k` and `tails` the algorithms are timed back to back for each input set (interleaved), so drift in clock speed or temperature over the run affects all of them equally.
 - `run_all.sh` pins the benchmark to core 2 with `taskset` (Linux), so the process is not moved between cores mid-run. Core 0 is avoided because it usually handles most hardware interrupts.
 - One build (`-O3`) and one benchmark program. The benchmark has no special-case code for any algorithm.
-- AKS is the plain textbook algorithm: schoolbook polynomial squaring, no NTT and a single thread. For n below 2^32 a faster 64-bit arithmetic path is used. This makes its time jump at 32 bits (visible in `aks_steps.csv`); the jump comes from the implementation, not from the algorithm's complexity.
+- AKS is the plain textbook algorithm: schoolbook polynomial squaring, no NTT and a single thread. For n below 2^32 a faster 64-bit arithmetic path is used. This makes its time jump between 32 and 33 bits (`aks_32bit.csv`); the jump comes from the implementation, not from the algorithm's complexity.
 - The machine, CPU governor and boost state are recorded in `results/env.txt`. With `run_all.sh --fixed-clock` (Linux, sudo), the run uses the `performance` governor with boost off, so the clock speed does not change between cells; the previous settings are restored afterwards.
 
 ## Using the results

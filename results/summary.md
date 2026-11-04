@@ -129,6 +129,20 @@ Fermat's measured error is on average 0.0004 away from the exact value (φ(n) �
 | semiprime | 48 | poly_mismatch | 2309 | 2281.8 | 1 / 2295 | 99.9% | 1.43 s |
 | semiprime | 52 | poly_mismatch | 2621 | 2603.5 | 1 / 2612 | 99.9% | 2.04 s |
 
+## AKS either side of 2^32 (balanced semiprimes, one value of a checked)
+
+From 32 to 33 bits the median time grows 16.2×, while r grows only from 1013 to 1063.
+
+| bits | median r | median time | time per coefficient multiply-add | correct |
+|---|---|---|---|---|
+| 29 | 839 | 6.06 ms | 0.30 ns | 5 / 5 |
+| 30 | 853 | 6.45 ms | 0.29 ns | 5 / 5 |
+| 31 | 937 | 7.99 ms | 0.29 ns | 5 / 5 |
+| 32 | 1013 | 9.57 ms | 0.29 ns | 5 / 5 |
+| 33 | 1063 | 155 ms | 4.15 ns | 5 / 5 |
+| 34 | 1151 | 196 ms | 4.34 ns | 5 / 5 |
+| 35 | 1201 | 224 ms | 4.43 ns | 5 / 5 |
+
 ## Environment
 
 ```
