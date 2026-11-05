@@ -1,9 +1,7 @@
-// Single entry point for all primality tests: run one or all algorithms on
-// given numbers, or benchmark them over an input file with CSV output.
+// Run one or all algorithms on given numbers. Tests and benchmarks are in
+// tests/tests.cpp and bench/bench.cpp.
 
-#include <chrono>
 #include <cstdlib>
-#include <fstream>
 #include <iostream>
 #include <stdexcept>
 #include <string>
@@ -17,22 +15,15 @@ struct Options {
     std::string command;
     std::string algo;
     std::vector<u64> numbers;
-    std::string input;
-    int rounds = 20;
+    int rounds = DEFAULT_ROUNDS;
     u64 seed = 42;
-    int reps = 5;
-    int warmup = 1;
 };
 
 void usage() {
     std::cerr <<
         "usage:\n"
         "  primality list\n"
-        "  primality run   <algo|all> <n>... [--rounds K] [--seed S]\n"
-        "  primality bench <algo|all> --input FILE [--reps R] [--warmup W]\n"
-        "                  [--rounds K] [--seed S]\n"
-        "\n"
-        "bench writes CSV to stdout: algorithm,n,bits,rep,result,ns\n";
+        "  primality run <algo|all> <n>... [--rounds K] [--seed S]\n";
 }
 
 u64 parse_u64(const std::string& s) {
@@ -58,9 +49,6 @@ Options parse_args(int argc, char** argv) {
         };
         if (arg == "--rounds") o.rounds = std::stoi(value());
         else if (arg == "--seed") o.seed = parse_u64(value());
-        else if (arg == "--reps") o.reps = std::stoi(value());
-        else if (arg == "--warmup") o.warmup = std::stoi(value());
-        else if (arg == "--input") o.input = value();
         else o.numbers.push_back(parse_u64(arg));
     }
     return o;
@@ -73,21 +61,6 @@ std::vector<const Algorithm*> select_algorithms(const std::string& name) {
     if (out.empty()) throw std::invalid_argument("unknown algorithm: " + name);
     return out;
 }
-
-// One number per line; blank lines and lines starting with '#' are skipped.
-std::vector<u64> read_numbers(const std::string& path) {
-    std::ifstream in(path);
-    if (!in) throw std::runtime_error("cannot open " + path);
-    std::vector<u64> nums;
-    std::string line;
-    while (std::getline(in, line)) {
-        if (line.empty() || line[0] == '#') continue;
-        nums.push_back(parse_u64(line));
-    }
-    return nums;
-}
-
-int bit_length(u64 n) { return n == 0 ? 0 : 64 - __builtin_clzll(n); }
 
 int cmd_list() {
     for (const auto& a : ALGORITHMS)
@@ -114,36 +87,6 @@ int cmd_run(const Options& o) {
     return 0;
 }
 
-int cmd_bench(const Options& o) {
-    if (o.input.empty()) throw std::invalid_argument("bench needs --input FILE");
-    const std::vector<u64> nums = read_numbers(o.input);
-    volatile bool sink = false;  // stops the compiler discarding results
-
-    std::cout << "algorithm,n,bits,rep,result,ns\n";
-    for (const Algorithm* a : select_algorithms(o.algo)) {
-        std::mt19937_64 rng(o.seed);
-        TestParams p{o.rounds, rng};
-        try {
-            for (u64 n : nums) {
-                for (int w = 0; w < o.warmup; ++w) sink = a->fn(n, p);
-                for (int r = 0; r < o.reps; ++r) {
-                    auto t0 = std::chrono::steady_clock::now();
-                    bool result = a->fn(n, p);
-                    auto t1 = std::chrono::steady_clock::now();
-                    sink = result;
-                    auto ns = std::chrono::duration_cast<std::chrono::nanoseconds>(t1 - t0).count();
-                    std::cout << a->name << "," << n << "," << bit_length(n) << ","
-                              << r << "," << result << "," << ns << "\n";
-                }
-            }
-        } catch (const std::logic_error& e) {
-            std::cerr << "skipping " << a->name << ": " << e.what() << "\n";
-        }
-    }
-    (void)sink;
-    return 0;
-}
-
 }  // namespace
 
 int main(int argc, char** argv) {
@@ -151,7 +94,6 @@ int main(int argc, char** argv) {
         Options o = parse_args(argc, argv);
         if (o.command == "list") return cmd_list();
         if (o.command == "run") return cmd_run(o);
-        if (o.command == "bench") return cmd_bench(o);
         throw std::invalid_argument("unknown command: " + o.command);
     } catch (const std::exception& e) {
         std::cerr << "error: " << e.what() << "\n\n";
